@@ -13,7 +13,7 @@ FROM  arm32v7/openjdk:8u212-jre-slim
 #EXPOSE 22
 # end wurstmeister/base
 
-ARG zookeeper_version=3.4.13
+ARG zookeeper_version=3.4.14
 ARG vcs_ref=unspecified
 ARG build_date=unspecified
 
