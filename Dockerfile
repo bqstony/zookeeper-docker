@@ -28,8 +28,10 @@ LABEL org.label-schema.name="zookeeper" \
 
 ENV ZOOKEEPER_VERSION=$zookeeper_version
 
-RUN apt-get update \
- && apt-get install -y wget \
+# Udpate requireded package
+RUN apt-get update 
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils
+RUN apt-get install -y wget \
  && apt-get install -y gpg
 
 #Download Zookeeper
