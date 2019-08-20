@@ -28,17 +28,20 @@ LABEL org.label-schema.name="zookeeper" \
 
 ENV ZOOKEEPER_VERSION=$zookeeper_version
 
+RUN apt-get update \
+ && apt-get install -y wget \
+ && apt-get install -y gpg
+
 #Download Zookeeper
 RUN wget -q http://mirror.vorboss.net/apache/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz && \
 wget -q https://www.apache.org/dist/zookeeper/KEYS && \
 wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc && \
 wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5
 
-# Todo install gpg and verify!
 #Verify download
-#RUN md5sum -c zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5 && \
-#gpg --import KEYS && \
-#gpg --verify zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc
+RUN md5sum -c zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5 && \
+gpg --import KEYS && \
+gpg --verify zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc
 
 #Install
 RUN tar -xzf zookeeper-${ZOOKEEPER_VERSION}.tar.gz -C /opt
