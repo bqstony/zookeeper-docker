@@ -29,20 +29,20 @@ LABEL org.label-schema.name="zookeeper" \
 ENV ZOOKEEPER_VERSION=$zookeeper_version
 
 # Udpate requireded package
-# ToDo: Oneliner possible?
 RUN apt-get update 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils
 RUN apt-get install -y wget \
+
  && apt-get install -y gpg
 
 #Download Zookeeper
 RUN wget -q http://mirror.vorboss.net/apache/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz && \
 wget -q https://www.apache.org/dist/zookeeper/KEYS && \
 wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc && \
-wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.sha256
+wget -q https://www.apache.org/dist/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5
 
 #Verify download
-RUN sha256sum -c zookeeper-${ZOOKEEPER_VERSION}.tar.gz.sha256 && \
+RUN md5sum -c zookeeper-${ZOOKEEPER_VERSION}.tar.gz.md5 && \
 gpg --import KEYS && \
 gpg --verify zookeeper-${ZOOKEEPER_VERSION}.tar.gz.asc
 
