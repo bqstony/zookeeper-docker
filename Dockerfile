@@ -52,6 +52,10 @@ RUN tar -xzf zookeeper-${ZOOKEEPER_VERSION}.tar.gz -C /opt
 #Configure
 RUN mv /opt/zookeeper-${ZOOKEEPER_VERSION}/conf/zoo_sample.cfg /opt/zookeeper-${ZOOKEEPER_VERSION}/conf/zoo.cfg
 
+# Tone down the JVM heap etc. for the RASPI we only have 1G
+ENV ZK_SERVER_HEAP 384
+ENV ZK_CLIENT_HEAP 128
+
 # should be in base image and not nessessary anymore
 #ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64
 ENV ZK_HOME /opt/zookeeper-${ZOOKEEPER_VERSION}
